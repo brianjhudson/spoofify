@@ -1,0 +1,21 @@
+<home-nav></home-nav>
+<h3>New Releases</h3>
+<div class="singles-wrapper">
+  <ul class="singles">
+    <li ng-repeat="newRelease in newReleases">
+      <div class="single">
+        <div class="img">
+          <img ng-src="{{newRelease.coverArt}}" />
+        </div>
+        <div class="info">
+          <p>
+            {{newRelease.songName}}
+          </p>
+          <p>
+            {{newRelease.artistName}}
+          </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

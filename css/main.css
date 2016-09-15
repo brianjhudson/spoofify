@@ -1,0 +1,310 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #181818;
+  color: #ADAFB2;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+a {
+  cursor: pointer;
+  color: #ADAFB2;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+p {
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 14px;
+  color: #ADAFAD;
+}
+
+div.wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+nav {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  padding: 5px 20px;
+  background-color: #282828;
+  border-bottom: 1px solid #000;
+  overflow: hidden;
+  color: #A0A0A0;
+  z-index: 2;
+}
+
+nav div.wrapper-left div.logo img {
+  width: 40px;
+  float: left;
+}
+
+nav div.wrapper-left {
+  float: left;
+  width: 50%;
+}
+
+nav div.wrapper-right {
+  float: right;
+  width: 50%;
+}
+
+div.logo {
+  margin-right: 10px;
+  float: left;
+}
+
+div.arrows-nav {
+  margin-top: 10px;
+  float: left;
+}
+
+nav a {
+  color: #A0A0A0;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+div.music-search {
+  float: left;
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+div.music-search input {
+  border-radius: 20px;
+  border: none;
+  padding: 3px 30px 6px;
+  width: 250px;
+  color: #181818;
+  margin-top: 1px;
+}
+
+::-webkit-input-placeholder {
+   color: black;
+   font-size: 12px;
+   vertical-align: middle;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: black;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: black;
+}
+
+:-ms-input-placeholder {
+   color:  black;
+}
+
+div.arrows-nav span.left-arrow {
+  margin-left: 20px;
+}
+
+div.arrows-nav span.right-arrow {
+  margin-left: 20px;
+}
+
+div.music-search span.search-icon {
+  right: -27px;
+  top: 2px;
+  color: black;
+  font-size: 13px;
+}
+
+div.account-dropdown {
+  margin-top: 10px;
+  float: right;
+}
+
+div.user-info {
+  float: right;
+  margin-right: 20px;
+}
+
+div.user-info img {
+  border-radius: 50%;
+  height: 35px;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
+div.user-info p {
+  /*margin-top: 10px;*/
+}
+
+div.user-info p, div.user-info img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+sidebar {
+  display: block;
+  width: 200px;
+  background-color: #282828;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  color: #ADAFB2;
+  margin-top: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #A0A0A0;
+}
+
+div.playlist-wrapper {
+  max-height: 100%;
+  overflow: scroll;
+  padding-left: 10px;
+  height: calc(100% - 363px);
+}
+
+sidebar h3 {
+  text-transform: uppercase;
+  font-weight: 300;
+  padding: 10px 0 5px;
+  letter-spacing: 2px;
+  font-size: 12px;
+}
+
+ul.playlists > li {
+  padding: 9px 10px 9px 0;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+ul.playlists > li:before {
+    content: "\e002";
+    font-family: 'Glyphicons Halflings';
+    font-size: 14px;
+    font-weight: 300;
+    padding-right: 15px;
+}
+
+div.currently-playing-wrapper {
+  width: 200px;
+  background-color: #282828;
+  position: fixed;
+  bottom: 60px;
+}
+
+div.album-cover img {
+  width: 100%;
+}
+
+div.currently-playing-info {
+  padding: 10px 10px;
+}
+
+div.currently-playing-info p.song {
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+div.currently-playing-info p.artist {
+  font-size: 12px;
+}
+
+currently-playing {
+    position: fixed;
+    width: 200px;
+    z-index: 9;
+    bottom: 60px;
+}
+
+ui-view {
+  display: block;
+  padding: 20px;
+  overflow: hidden;
+  height: calc(100% - 110px);
+  position: fixed;
+  right: 0;
+  top: 50px;
+  width: calc(100% - 200px);
+  overflow: scroll;
+}
+
+ui-view h1 {
+  font-size: 50px;
+  font-weight: 300;
+  color: #fff;
+}
+
+div.home-nav {
+  width: 100%;
+  border-bottom: 1px solid #282828;
+  padding: 19px 0;
+  margin-top: 30px;
+}
+
+div.home-nav > ul {
+
+}
+
+div.home-nav > ul > li {
+  display: inline;
+  text-transform: uppercase;
+  padding: 15px 0;
+  margin-right: 20px;
+}
+
+div.home-nav > ul > li.active {
+  border-bottom: 3px solid #2CB7FF;
+}
+
+div.home-nav > ul > li.active a {
+  color: #fff;
+}
+
+
+home-nav {
+  display: block;
+  margin-bottom: 40px;
+}
+
+ul.singles > li {
+  display: inline-block;
+  margin: 0 20px 20px 0;
+}
+
+ul.singles > li img {
+  width: 180px;
+}
+
+ul.singles > li div.info {
+  background-color: #282828;
+  padding: 10px;
+}
+
+ul.singles > li div.info p {
+  text-align: center;
+  padding-bottom: 3px;
+}
+
+bottom-play {
+  display: block;
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  padding: 5px 20px;
+  background-color: #282828;
+  position: fixed;
+  bottom: 0;
+  z-index: 3;
+  border-top: 1px solid #000;
+}
