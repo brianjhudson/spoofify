@@ -11,4 +11,12 @@ var spoofifyApp = angular.module('spoofifyApp', ['ui.router'])
       templateUrl : './views/browse/newReleases.html',
       url : '/newReleases'
     })
+    .state('charts', {
+      templateUrl : './views/browse/charts.html',
+      url : '/charts'
+    })
+    .state("artist", {
+      templateUrl : './views/artist.html',
+      url : '/artist/:id'
+    })
   })

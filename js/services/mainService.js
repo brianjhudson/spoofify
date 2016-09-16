@@ -1,8 +1,14 @@
 spoofifyApp.service('mainService', function($http){
   var baseUrl = "https://itunes.apple.com/";
 
-  this.getAlbum = function(){
-    return $http.jsonp(baseUrl + 'lookup?id=909253&entity=album&callback=JSON_CALLBACK').then(function(response){
+  this.getAlbum = function(id){
+    return $http.jsonp(baseUrl + 'lookup?id=' + id + '&entity=album&callback=JSON_CALLBACK').then(function(response){
+      return response;
+    })
+  }
+
+  this.getArtist = function(id){
+    return $http.jsonp(baseUrl + 'lookup?id=' + id + '&callback=JSON_CALLBACK').then(function(response){
       return response;
     })
   }
