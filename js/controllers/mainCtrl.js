@@ -1,9 +1,7 @@
 spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainService){
   var baseUrl = "https://itunes.apple.com/";
 
-  mainService.getAlbum().then(function(results){
-    // console.log(results)
-  })
+  $scope.test = "test";
 
   $scope.getNewReleases = function(){
     $http.get(baseUrl + "WebObjects/MZStore.woa/wpa/MRSS/newreleases/sf=143441/limit=50/explicit=true/rss.xml",
@@ -15,7 +13,7 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
       }
     }).success(function (response) {
       $scope.newReleases = [];
-      console.log("new releases", response.rss.channel.item);
+      // console.log("new releases", response.rss.channel.item);
       var objTransfer = response.rss.channel.item;
 
       objTransfer.forEach(function(x){
@@ -28,7 +26,7 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
           coverArt : getBiggerCoverArt(x.coverArt[2].__text)
         })
       })
-      console.log($scope.newReleases);
+      // console.log($scope.newReleases);
       return $scope.newReleases;
     });
   }
@@ -43,7 +41,7 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
       }
     }).success(function (response) {
       $scope.featuredAlbums = [];
-      console.log('featuredAlbums', response.rss.channel.item);
+      // console.log('featuredAlbums', response.rss.channel.item);
       var objTransfer = response.rss.channel.item;
 
       objTransfer.forEach(function(x){
@@ -57,7 +55,7 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
           coverArt : getBiggerCoverArt(x.coverArt[2].__text)
         })
       })
-      console.log($scope.featuredAlbums);
+      // console.log($scope.featuredAlbums);
       return $scope.featuredAlbums;
     });
   }
@@ -72,7 +70,7 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
       }
     }).success(function (response) {
       $scope.topSongs = [];
-      console.log("top songs", response.feed.entry);
+      // console.log("top songs", response.feed.entry);
       var objTransfer = response.feed.entry;
 
       objTransfer.forEach(function(x){
@@ -85,7 +83,7 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
           coverArt : getBiggerCoverArt170(x.image[2].__text)
         })
       })
-      console.log($scope.topSongs);
+      // console.log($scope.topSongs);
       return $scope.topSongs;
     });
   }
@@ -171,11 +169,19 @@ $scope.getAlbum = function(id){
   })
 }
 
-$scope.getArtist = function(id){
-  mainService.getArtist(id).then(function(results){
+  $scope.artistId = $stateParams.id;
 
+  console.log($scope.artistId);
+
+  mainService.getArtist(580391756).then(function(results){
+    // console.log(results);
+    $scope.artistInfo = results.data.results
   })
-}
+
+  mainService.getAlbums(580391756).then(function(results){
+    $scope.artistAlbums = results.data.results;
+    console.log($scope.artistAlbums);
+  })
 
 
   // $scope.getSearchResults = function(search){
