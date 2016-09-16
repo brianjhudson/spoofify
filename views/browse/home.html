@@ -14,15 +14,17 @@
   <ul class="songs">
     <li ng-repeat="album in featuredAlbums">
       <div class="song">
-        <div class="img">
-          <img ng-src="{{album.coverArt}}" /></a>
+        <div class="img" album-overlay>
+          <a id="album-cover" ui-sref="album({id : {{album.albumID}}})"><img ng-src="{{album.coverArt}}" />
+          <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
+          </a>
         </div>
         <div class="info">
           <p>
-            {{album.songName}}
+            {{album.albumName}}
           </p>
           <p>
-            {{album.artistName}}
+            <a ui-sref="album({id : {{album.albumID}}})">{{album.artistName}}</a>
           </p>
         </div>
       </div>
@@ -35,8 +37,10 @@
   <ul class="songs">
     <li ng-repeat="song in topSongs | limitTo : 10">
       <div class="song">
-        <div class="img">
-          <img ng-src="{{song.coverArt}}" />
+        <div class="img" album-overlay>
+          <a ui-sref="artist({id : {{song.artistID}}})"><img ng-src="{{song.coverArt}}" />
+          <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
+          </a>
         </div>
         <div class="info">
           <p>
@@ -56,15 +60,17 @@
   <ul class="songs">
     <li ng-repeat="album in topAlbums | limitTo : 10">
       <div class="song">
-        <div class="img">
-          <img ng-src="{{album.coverArt}}" />
+        <div class="img" album-overlay>
+          <a ui-sref="album({id : {{album.albumId}}})"><img ng-src="{{album.coverArt}}" />
+          <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
+          </a>
         </div>
         <div class="info">
           <p>
-            {{album.songName}}
+            {{album.albumName}}
           </p>
           <p>
-            {{album.artistName}}
+            <a ui-sref="album({id : {{album.albumId}}})">{{album.artistName}}</a>
           </p>
         </div>
       </div>

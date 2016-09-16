@@ -15,24 +15,33 @@
       <navbar></navbar>
     </nav>
 
+      <search-results></search-results>
       <sidebar></sidebar>
       <ui-view id="home-scroll"></ui-view>
 
     <bottom-play></bottom-play>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.11/angular-filter.js" charset="utf-8"></script>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="js/libs/xml2json.js" charset="utf-8"></script>
   <script src="app.js" charset="utf-8"></script>
   <script src="js/controllers/mainCtrl.js" charset="utf-8"></script>
   <script src="js/controllers/genresCtrl.js" charset="utf-8"></script>
+  <script src="js/controllers/artistCtrl.js" charset="utf-8"></script>
+  <script src="js/controllers/browseCtrl.js" charset="utf-8"></script>
+  <script src="js/controllers/albumCtrl.js" charset="utf-8"></script>
+  <script src="js/controllers/searchCtrl.js" charset="utf-8"></script>
   <script src="js/directives/navbar.js" charset="utf-8"></script>
   <script src="js/directives/sidebar.js" charset="utf-8"></script>
   <script src="js/directives/currentlyPlaying.js" charset="utf-8"></script>
   <script src="js/directives/homeNav.js" charset="utf-8"></script>
-  <script src="js/directives/homeScroll.js" charset="utf-8"></script>
+  <script src="js/directives/enterSubmit.js" charset="utf-8"></script>
+  <script src="js/directives/animations/homeScroll.js" charset="utf-8"></script>
+  <script src="js/directives/animations/albumOverlay.js" charset="utf-8"></script>
+  <script src="js/directives/searchResults.js" charset="utf-8"></script>
   <script src="js/services/mainService.js" charset="utf-8"></script>
   <script src="js/misc.js" charset="utf-8"></script>
   </body>

@@ -14,15 +14,18 @@
   <ul class="songs">
     <li ng-repeat="song in topSongs | limitTo : 50">
       <div class="song">
-        <div class="img">
-          <img ng-src="{{song.coverArt}}" />
+        <div class="img" album-overlay>
+          <a ui-sref="artist({id : {{song.artistID}}})">
+            <img ng-src="{{song.coverArt}}" />
+            <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
+          </a>
         </div>
         <div class="info">
           <p>
             {{song.songName}}
           </p>
           <p>
-            {{song.artistName}}
+            <a ui-sref="artist({id : {{song.artistID}}})">{{song.artistName}}</a>
           </p>
         </div>
       </div>
@@ -35,15 +38,18 @@
   <ul class="songs">
     <li ng-repeat="album in topAlbums | limitTo : 50">
       <div class="song">
-        <div class="img">
-          <img ng-src="{{album.coverArt}}" />
+        <div class="img" album-overlay>
+          <a ui-sref="album({id : {{album.albumId}}})">
+            <img ng-src="{{album.coverArt}}" />
+            <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
+          </a>
         </div>
         <div class="info">
           <p>
             {{album.songName}}
           </p>
           <p>
-            {{album.artistName}}
+            <a ui-sref="artist({id : {{song.artistID}}})">{{album.artistName}}</a>
           </p>
         </div>
       </div>

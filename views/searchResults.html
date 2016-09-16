@@ -1,0 +1,34 @@
+<div class="sr-wrapper">
+  <h3>Albums</h3>
+  <div class="sr-top-albums">
+    <div class="album" ng-repeat="result in searchResults | limitTo: 5 | unique : 'collectionName'">
+      <div class="album-img">
+        <a ui-sref="album({id : {{result.collectionId}}})"><img ng-src="{{result.artworkUrl60}}" /></a>
+      </div>
+      <div class="album-details">
+        <p class="title">
+          <a ui-sref="album({id : {{result.collectionId}}})">{{limitSearchTitleLength(result.collectionName)}}</a>
+        </p>
+        <p>
+          <a ui-sref="artist({id : {{result.artistId}}})">{{result.artistName}}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sr-wrapper">
+  <h3>Songs</h3>
+  <div class="sr-top-songs">
+    <div class="song" ng-repeat="result in searchResults | limitTo: 25">
+      <a ui-sref="artist({id : {{result.artistId}}})">
+        <p class="title">
+          {{limitSearchLength(result.trackName)}}
+        </p>
+        <p>
+          {{result.artistName}}
+        </p>
+      </a>
+    </div>
+  </div>
+</div>

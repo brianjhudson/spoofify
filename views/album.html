@@ -1,15 +1,19 @@
-<h1>{{artistAlbums[0].artistName}}</h1>
-<h3>Albums</h3>
-<div class="album-wrapper" ng-repeat="album in artistAlbums | orderBy: parseInt(album.releaseYear)">
+<div class="single-album-wrapper" ng-repeat="album in singleAlbum | orderBy: parseInt(album.releaseYear)">
   <div class="album-header">
     <div class="artwork">
-      <img ng-src="{{album.albumArtwork}}" />
+      <img ng-src="{{album.coverArt}}" />
     </div>
     <div class="album-info">
       <p class="year">
-        {{album.releaseYear}}
+        Album
       </p>
-      <h1><a ui-sref="album({id : {{album.albumId}}})">{{album.albumName}}</a></h1>
+      <h1>{{album.albumName}}</h1>
+      <p class="album-details">
+        By <a ui-sref="artist({id: album.artistId})">{{album.artistName}}</a> &#8226 {{album.releaseYear}} &#8226 {{album.trackCount}} songs, {{album.totalAlbumTime}} min
+      </p>
+      <p class="album-details">
+        Genre: {{album.genre}}
+      </p>
     </div>
   </div>
   <table class="table">

@@ -14,15 +14,18 @@
   <ul class="songs">
     <li ng-repeat="newRelease in newReleases">
       <div class="song">
-        <div class="img">
-          <img ng-src="{{newRelease.coverArt}}" />
+        <div class="img" album-overlay>
+          <a ui-sref="artist({id : {{newRelease.artistID}}})">
+            <img ng-src="{{newRelease.coverArt}}" />
+            <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
+          </a>
         </div>
         <div class="info">
           <p>
             {{newRelease.songName}}
           </p>
           <p>
-            {{newRelease.artistName}}
+            <a ui-sref="artist({id : {{newRelease.artistID}}})">{{newRelease.artistName}}</a>
           </p>
         </div>
       </div>
