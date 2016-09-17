@@ -3,7 +3,7 @@ spoofifyApp.controller('artistCtrl', function($scope, $http, $stateParams, mainS
 
   mainService.getAlbums($stateParams.id).then(function(results){
     var transferObj = results.data.results;
-    console.log(transferObj);
+    // console.log(transferObj);
     $scope.artistAlbums = [];
     var albumSongs = [];
     var albumSongsArr = [];
@@ -47,6 +47,9 @@ spoofifyApp.controller('artistCtrl', function($scope, $http, $stateParams, mainS
       }
     })
     console.log($scope.artistAlbums);
+    $scope.playPreview = function(url){
+      return mainService.playPreview(url);
+    }
     return $scope.artistAlbums;
   })
 })

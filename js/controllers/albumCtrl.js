@@ -45,6 +45,9 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, mainSe
 
         })
       })
+      $scope.playPreview = function(url){
+        return mainService.playPreview(url);
+      }
       // console.log($scope.singleAlbum);
       return $scope.singleAlbum;
     })

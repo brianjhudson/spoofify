@@ -21,39 +21,6 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
 
       $scope.searchResults = results.data.results;
 
-      // var results = results.data.results;
-      // $scope.searchResults = [];
-      // var albums = [];
-      // var songs = [];
-      // var artists = [];
-      //
-      // for (var i = 0; i < results.length; i++) {
-      //   songs.push({
-      //     type : results[i].kind,
-      //     trackName : results[i].trackName,
-      //     trackId : results[i].trackId,
-      //     artistName : results[i].artistName,
-      //     artistId : results[i].artistId,
-      //     albumName : results[i].collectionName,
-      //     albumId : results[i].collectionId
-      //   })
-      // }
-      //
-      // albums.forEach(function(x, y){
-      //   if(x.albumName)
-      // })
-      //
-      // for (var i = 0; i < results.length; i++) {
-      //   if(albums.album)
-      //   albums.push({
-      //     albumName : results[i].collectionName,
-      //     albumId : results[i].collectionId,
-      //     artistName : results[i].artistName,
-      //     artistId : results[i].artistId,
-      //     coverArt : results[i].artworkUrl60
-      //   })
-      // }
-
       console.log($scope.searchResults);
 
       return $scope.searchResults;

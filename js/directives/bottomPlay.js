@@ -1,5 +1,6 @@
 spoofifyApp.directive('bottomPlay', function(){
   return {
-    templateUrl : "../../views/bottomPlay.html"
+    templateUrl : "../../views/bottomPlay.html",
+    controller : "bottomPlay"
   }
 })

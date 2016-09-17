@@ -1,5 +1,6 @@
 spoofifyApp.directive('searchResults', function(){
   return {
-    templateUrl : '../../views/searchResults.html'
+    templateUrl : '../../views/searchResults.html',
+    controller : 'searchCtrl'
   }
 })

@@ -31,6 +31,11 @@ spoofifyApp.service('mainService', function($http){
     })
   }
 
+  this.playPreview = function(url){
+    var audio = new Audio(url);
+    audio.play();
+  }
+
 
   // Helper Functions
 

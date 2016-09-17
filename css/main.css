@@ -185,7 +185,7 @@ div.playlist-wrapper {
   max-height: 100%;
   overflow: scroll;
   padding-left: 10px;
-  height: calc(100% - 363px);
+  height: calc(100% - 368px);
 }
 
 sidebar h3 {
@@ -219,7 +219,8 @@ div.currently-playing-wrapper {
   width: 200px;
   background-color: #282828;
   position: fixed;
-  bottom: 60px;
+  bottom: 0;
+  left: 0;
 }
 
 div.album-cover img {
@@ -363,11 +364,25 @@ div.album-info {
 
 .table>tbody>tr>td {
   border-bottom: 1px solid #282828;
+  position: relative;
 }
 
 .table>tbody>tr>td.name {
   color: #fff;
   font-size: 13px;
+}
+
+.table>tbody>tr>td>a>span.play {
+  font-size: 30px;
+  position: absolute;
+  left: 3px;
+  top: 4px;
+  display: none;
+  transition: all .2s ease;
+}
+
+.table>tbody>tr>td>a>span.play:hover {
+  transform: scale(1.2);
 }
 
 .table>tbody>tr>td.time {
@@ -466,15 +481,11 @@ button.search {
 
 bottom-play {
   display: block;
-  width: 100%;
-  height: 60px;
-  position: fixed;
+  width: 200px;
+  position: relative;
   padding: 5px 20px;
   background-color: #282828;
-  position: fixed;
-  bottom: 0;
   z-index: 3;
-  border-top: 1px solid #000;
 }
 
 search-results {
@@ -565,6 +576,40 @@ div.album>p {
 
 div.sr-top-songs>div.song:hover {
   background-color: #4D4D4D;
+}
+
+div.play-controls {
+  margin-top: 3px;
+  padding: 10px 0 10px 20px;
+  border-top: 1px solid #000;
+}
+
+div.play-controls>div.previous>button>span, div.play-controls>div.next>button>span {
+  font-size: 24px;
+  vertical-align: middle;
+}
+
+div.play-controls>div.play>button>span {
+  font-size: 36px;
+  vertical-align: middle;
+  padding: 0 10px;
+}
+
+div.play-controls button {
+  background: none;
+  border: none;
+}
+
+div.play-controls>div.previous {
+  display: inline-block;
+}
+
+div.play-controls>div.play {
+  display: inline-block;
+}
+
+div.play-controls>div.next {
+  display: inline-block;
 }
 
 .show {
