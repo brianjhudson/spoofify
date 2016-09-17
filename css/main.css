@@ -251,7 +251,7 @@ ui-view {
   display: block;
   padding: 20px;
   overflow: hidden;
-  height: calc(100% - 110px);
+  height: calc(100% - 50px);
   position: fixed;
   right: 0;
   top: 50px;
@@ -373,11 +373,10 @@ div.album-info {
 }
 
 .table>tbody>tr>td>a>span.play {
-  font-size: 30px;
+  font-size: 24px;
   position: absolute;
-  left: 3px;
-  top: 4px;
-  display: none;
+  left: 8px;
+  top: 8px;
   transition: all .2s ease;
 }
 
@@ -576,6 +575,21 @@ div.album>p {
 
 div.sr-top-songs>div.song:hover {
   background-color: #4D4D4D;
+}
+tbody.songs-list>tr>td>a>span.pause {
+  position: absolute;
+  left: 10px;
+  top: 7px;
+  font-size: 22px;
+  transition: all .2s ease;
+}
+
+tbody.songs-list>tr>td>a>span.pause:hover {
+  transform: scale(1.2);
+}
+
+tbody.songs-list>tr>td>a#pause {
+  display: none;
 }
 
 div.play-controls {
