@@ -1,34 +1,38 @@
 <h1>{{artistAlbums[0].artistName}}</h1>
 <h3>Albums</h3>
 <div class="album-wrapper" ng-repeat="album in artistAlbums | orderBy: parseInt(album.releaseYear)">
-  <div class="album-header">
-    <div class="artwork">
-      <img ng-src="{{album.albumArtwork}}" />
+  <div class="song">
+    <div class="img" album-overlay>
+      <a id="album-cover" ui-sref="album({id : album.albumId})"><img ng-src="{{album.albumArtwork}}" />
+      <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
+      </a>
     </div>
-    <div class="album-info">
-      <p class="year">
-        {{album.releaseYear}}
-      </p>
-      <h1><a ui-sref="album({id : {{album.albumId}}})">{{album.albumName}}</a></h1>
+    <div class="info">
+      <p style="padding-bottom:5px;"><a ui-sref="album({id : {{album.albumId}}})">{{album.albumName}}</a></p>
+      <p>{{album.releaseYear}}</p>
     </div>
   </div>
-  <table class="table">
+  <!-- <table class="table">
     <thead>
       <tr>
         <th>#</th>
         <th class="title">Song</th>
         <th class="time"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></th>
+        <th></th>
       </tr>
     </thead>
     <tbody class="songs-list">
       <tr song-play ng-repeat="song in album.songs">
         <td>
           <span class="number">{{song.trackNumber}}</span>
-          <a ng-click="playPreview(song.previewUrl)"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></a>
         </td>
         <td class="name">{{song.trackName}}</td>
         <td class="time">{{song.trackTime}}</td>
+        <td>
+          <a id="pause" ng-click="pausePreview()"><span class="glyphicon glyphicon-pause pause" aria-hidden="true"></span></a>
+          <a id="play" ng-click="playPreview(song.previewUrl, song.trackId)"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></a>
+        </td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 </div>

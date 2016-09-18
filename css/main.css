@@ -29,6 +29,10 @@ a {
   color: #ADAFB2;
   transition: all .2s ease;
 }
+a:focus {
+  color: #fff;
+  text-decoration: none;
+}
 
 a:hover {
   color: #fff;
@@ -196,6 +200,11 @@ sidebar h3 {
   font-size: 12px;
 }
 
+sidebar h3 a {
+  color: white;
+  font-size: 14px;
+}
+
 ul.playlists > li {
   padding: 9px 10px 9px 0;
   font-size: 13px;
@@ -308,11 +317,11 @@ ul.songs > li {
   margin: 0 20px 20px 0;
 }
 
-ul.songs > li img {
+div.song img {
   width: 220px;
 }
 
-ul.songs > li div.info {
+div.info {
   background-color: #282828;
   padding: 20px 10px;
 }
@@ -331,9 +340,15 @@ ul.songs > li div.info p {
   left: 200px;
 }
 
+div.info p {
+  text-align: center;
+}
+
 div.album-wrapper {
-  width: 100%;
-  margin-bottom: 60px;
+  /*width: 100%;*/
+  display: inline-block;
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 div.artwork > img {
@@ -341,7 +356,6 @@ div.artwork > img {
 }
 
 div.artwork, div.album-info {
-  display: inline-block;
   vertical-align: top;
 }
 
@@ -434,6 +448,11 @@ div.single-album-wrapper>div.album-header>div.artwork>img {
 
 div.single-album-wrapper>div.album-header {
   margin-bottom: 30px;
+  display: block;
+}
+
+div.single-album-wrapper>div.album-header>div.artwork, div.single-album-wrapper>div.album-header>div.album-info {
+  display: inline-block;
 }
 
 div.single-album-wrapper>div.album-header>div.album-info>p.year {
@@ -623,6 +642,14 @@ div.play-controls>div.play {
 }
 
 div.play-controls>div.next {
+  display: inline-block;
+}
+
+button#master-pause{
+  display: none;
+}
+
+div.album-header {
   display: inline-block;
 }
 

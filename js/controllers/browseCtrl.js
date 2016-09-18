@@ -71,6 +71,8 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
       // console.log("top songs", response.feed.entry);
       var objTransfer = response.feed.entry;
 
+      console.log(objTransfer);
+
       objTransfer.forEach(function(x){
         $scope.topSongs.push({
           artistName : mainService.limitLength(x.artist.__text),

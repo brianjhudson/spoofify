@@ -21,10 +21,10 @@
         </div>
         <div class="info">
           <p>
-            {{album.albumName}}
+            <a ui-sref="album({id : {{album.albumID}}})">{{album.albumName}}</a>
           </p>
           <p>
-            <a ui-sref="album({id : {{album.albumID}}})">{{album.artistName}}</a>
+            <a ui-sref="artist({id : {{album.artistID}}})">{{album.artistName}}</a>
           </p>
         </div>
       </div>
@@ -38,7 +38,7 @@
     <li ng-repeat="song in topSongs | limitTo : 10">
       <div class="song">
         <div class="img" album-overlay>
-          <a ui-sref="artist({id : {{song.artistID}}})"><img ng-src="{{song.coverArt}}" />
+          <a ui-sref="album({id : {{song.albumId}}})"><img ng-src="{{song.coverArt}}" />
           <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
           </a>
         </div>
