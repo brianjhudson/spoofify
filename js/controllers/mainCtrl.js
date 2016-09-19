@@ -1,7 +1,9 @@
-spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainService){
+spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, $location, mainService, userService){
   var baseUrl = "https://itunes.apple.com/";
 
   $scope.test = "test";
+  $scope.previousUrl = "";
+  $scope.currentUrl = $location.path();
 
   $scope.limitSearchLength = function(str){
     return mainService.limitSearchLength(str);
@@ -29,16 +31,18 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, mainSer
 
   }
 
+  $scope.users = userService.users;
+  $scope.userPlaylist = $scope.users[0].playlists
+  // console.log($scope.users);
+  // console.log($scope.userPlaylist);
 
+  // console.log($location.path());
 
+  $scope.$on('$routeUpdate', function(){
+    $scope.previewUrl = $scope.currentUrl;
+  });
 
-
-
-
-
-
-
-
+    // console.log($scope.currentUrl, $scope.previewUrl);
 
 // $scope.getAlbum = function(id){
 //   mainService.getAlbum(id).then(function(results){

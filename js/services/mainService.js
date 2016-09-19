@@ -1,16 +1,23 @@
-spoofifyApp.service('mainService', function($http, $q){
+spoofifyApp.service('mainService', function($http, $location, $q){
   var baseUrl = "https://itunes.apple.com/";
   this.songPlaying = 0;
   this.masterSongPlaying = 0;
   this.currentSong = false;
   var currentSongArr = [];
   this.currentSongArr = [];
+  var playlistSongArr = [];
+  this.playlistSongArr = [];
   this.singleAlbum = [];
   var singleAlbumCache = [];
+  var playlistSongsCache = []
+  this.playlistSongsCache = [];
   this.testArr = [1, 2, 3, 4, 5];
+  var previousUrl = "";
+  var currentUrl = $location.path();
+  this.currentUrl = currentUrl;
 
   this.getAlbums = function(id){
-
+    // var dfd = $q.defer();
     return $http.jsonp(baseUrl + 'lookup?id=' + id + '&entity=album&callback=JSON_CALLBACK').then(function(response){
       var transferObj = response.data.results;
       this.artistAlbums = [];
@@ -52,15 +59,12 @@ spoofifyApp.service('mainService', function($http, $q){
               songs : albumSongsArr
             })
             // return $scope.artistAlbums;
-            sortingArr = sortByYear(this.artistAlbums, "releaseYear").reverse();
-            // setTimeout(function(){
-            //   this.artistAlbums =
-            // })
+              // sortingArr = sortByYear(this.artistAlbums, "releaseYear").reverse();
           })
         }
       })
-      this.artistAlbums = sortingArr;
-
+        this.artistAlbums = sortingArr;
+      // dfd.resolve(this.artistAlbums)
       // console.log(this.artistAlbums);
       // return this.artistAlbums;
       return this.artistAlbums;
@@ -89,14 +93,14 @@ spoofifyApp.service('mainService', function($http, $q){
     return $http.jsonp(baseUrl + 'lookup?id=' + id + '&callback=JSON_CALLBACK').then(function(response){
       var transferObj = response.data.results;
       this.singleAlbum = [];
-      console.log(transferObj);
+      // console.log(transferObj);
       transferObj.forEach(function(x){
 
 
         getSongsFromAlbum(x.collectionId).then(function(results){
           var songsArr = [];
           var transferSongObj = results.data.results;
-          console.log(transferSongObj);
+          // console.log(transferSongObj);
 
           transferSongObj.forEach(function(y, i){
             if(y.kind === "song"){
@@ -138,27 +142,77 @@ spoofifyApp.service('mainService', function($http, $q){
     })
   }
 
+  function closureArr(arr, x, i){
+    // arr.forEach(function(x, i){
+
+    // })
+  }
+
+  this.getPlaylistSongs = function(arr){
+    // console.log(arr);
+    playlistSongArr = [];
+    var dfd = $q.defer();
+
+    arr.forEach(function(x, i){
+      // console.log(x, i);
+      $http.jsonp(baseUrl + 'lookup?id=' + x + '&entity=song&callback=JSON_CALLBACK').then(function(results){
+          // console.log(results);
+        var y = results.data.results;
+        // console.log(y);
+        // console.log(y[0].artistId);
+        playlistSongArr.push({
+          artistId : y[0].artistId,
+          artistName : y[0].artistName,
+          coverArt : getBiggerCoverArt(y[0].artworkUrl100),
+          previewUrl : y[0].previewUrl,
+          trackNumber : y[0].trackNumber,
+          albumName : y[0].collectionName,
+          albumId : y[0].collectionId,
+          kind : y[0].kind,
+          trackId : y[0].trackId,
+          trackName : y[0].trackName,
+          trackTime : milliToMinutes(y[0].trackTimeMillis)
+        })
+        this.playlistSongArr = playlistSongArr;
+        playlistSongsCache = playlistSongArr;
+        this.playlistSongsCache = playlistSongsCache;
+        // console.log(this.playlistSongArr);
+        dfd.resolve(this.playlistSongArr);
+      })
+    })
+
+    return dfd.promise;
+  }
+
   this.searchBy = function(query){
     return $http.jsonp(baseUrl + '/search?term=' + query + '&callback=JSON_CALLBACK').then(function(response){
       return response;
     })
   }
 
-  this.playPreview = function(url, id, trackNum){
+  this.playPreview = function(url, id, trackNum, playlist){
     // debugger;
-    if(url){
+    // console.log(playlist);
+    if(playlist){
+      getSongInfoFP(id, playlist);
+      // console.log(url, id, trackNum, playlist);
+      this.currentSongArr = currentSongArr;
+    } else if(url){
       getSongInfo(id, singleAlbumCache);
-    // console.log(currentSongArr);
       this.currentSongArr = currentSongArr;
     }
+
     if(this.currentSong){
+      // console.log("1");
       if(url === this.currentSong.src){
         this.currentSong.play();
       } else if (!url) {
+        // console.log("2");
         // console.log(currentSongArr);
         currentSongArr[2]["currentlyPlaying"] = true;
         this.currentSong.play();
       } else {
+        // console.log("3");
         this.currentSong.pause();
         this.currentSong = new Audio(url);
         // console.log("play:", this.currentSong);
@@ -167,6 +221,7 @@ spoofifyApp.service('mainService', function($http, $q){
       // console.log(url);
       // console.log(this.currentSong.src);
     } else {
+      // console.log("4");
       var audio = new Audio(url);
       this.currentSong = audio;
       // console.log("play:", this.currentSong);
@@ -181,40 +236,109 @@ spoofifyApp.service('mainService', function($http, $q){
   }
 
   this.playNext = function(){
+    var currentSongInfo = {};
+    var currentSongIndex = 0;
+    currentUrl = $location.path();
     // console.log(singleAlbumCache);
-    if(this.currentSong){
-      var nextTrack = currentSongArr[0]["trackNumber"] + 1;
-      var nextId = 0;
-      var nextUrl = "";
-      singleAlbumCache[0]["songs"].map(function(x){
-        // console.log(x["trackNumber"], nextTrack);
-        if(x["trackNumber"] === nextTrack){
-          // console.log("it matches");
-          nextUrl = x["previewUrl"];
-          nextId = x["trackId"]
+    // console.log(currentUrl);
+    console.log(currentUrl);
+    if(currentUrl.slice(0, 5) === "/play"){
+      console.log("im on the playlist page");
+      var currentSongSrc = this.currentSong.src;
+      playlistSongsCache.map(function(x, i){
+        if(currentSongSrc === x.previewUrl){
+          currentSongInfo = x;
+          currentSongIndex = i;
         }
       })
-      // console.log(nextUrl, nextId, nextTrack);
-      this.playPreview(nextUrl, nextId, nextTrack);
+      // console.log(currentSongInfo);
+      // console.log(playlistSongsCache);
+        var nextTrack = currentSongIndex + 1;
+        var nextId = 0;
+        var nextUrl = "";
+        playlistSongsCache.map(function(x, i){
+          if(i == nextTrack){
+            nextUrl = x["previewUrl"];
+            nextId = x["trackId"]
+          }
+        })
+        this.playPreview(nextUrl, nextId, nextTrack, playlistSongsCache);
+      } else {
+      if(this.currentSong){
+        var nextTrack = currentSongArr[0]["trackNumber"] + 1;
+        var nextId = 0;
+        var nextUrl = "";
+        singleAlbumCache[0]["songs"].map(function(x){
+          // console.log(x["trackNumber"], nextTrack);
+          if(x["trackNumber"] === nextTrack){
+            // console.log("it matches");
+            nextUrl = x["previewUrl"];
+            nextId = x["trackId"]
+          }
+        })
+        // console.log(nextUrl, nextId, nextTrack);
+        this.playPreview(nextUrl, nextId, nextTrack);
+      }
     }
   }
 
   this.playPrevious = function(){
+    var currentSongInfo = {};
+    var currentSongIndex = 0;
+    currentUrl = $location.path();
     // console.log(singleAlbumCache);
-    if(this.currentSong){
-      var nextTrack = currentSongArr[0]["trackNumber"] - 1;
-      var nextId = 0;
-      var nextUrl = "";
-      singleAlbumCache[0]["songs"].map(function(x){
-        // console.log(x["trackNumber"], nextTrack);
-        if(x["trackNumber"] === nextTrack){
-          // console.log("it matches");
-          nextUrl = x["previewUrl"];
-          nextId = x["trackId"]
+    // console.log(currentUrl);
+    console.log(currentUrl);
+    if(currentUrl.slice(0, 5) === "/play"){
+      console.log("im on the playlist page");
+      var currentSongSrc = this.currentSong.src;
+      playlistSongsCache.map(function(x, i){
+        if(currentSongSrc === x.previewUrl){
+          currentSongInfo = x;
+          currentSongIndex = i;
         }
       })
-      // console.log(nextUrl, nextId, nextTrack);
-      this.playPreview(nextUrl, nextId, nextTrack);
+      // console.log(currentSongInfo);
+      // console.log(playlistSongsCache);
+        var nextTrack = currentSongIndex - 1;
+        var nextId = 0;
+        var nextUrl = "";
+        playlistSongsCache.map(function(x, i){
+          if(i == nextTrack){
+            nextUrl = x["previewUrl"];
+            nextId = x["trackId"]
+          }
+        })
+        this.playPreview(nextUrl, nextId, nextTrack, playlistSongsCache);
+      } else {
+      if(this.currentSong){
+        var nextTrack = currentSongArr[0]["trackNumber"] - 1;
+        var nextId = 0;
+        var nextUrl = "";
+        singleAlbumCache[0]["songs"].map(function(x){
+          // console.log(x["trackNumber"], nextTrack);
+          if(x["trackNumber"] === nextTrack){
+            // console.log("it matches");
+            nextUrl = x["previewUrl"];
+            nextId = x["trackId"]
+          }
+        })
+        // console.log(nextUrl, nextId, nextTrack);
+        this.playPreview(nextUrl, nextId, nextTrack);
+      }
+    }
+  }
+
+  this.goBack = function() {
+    if(previousUrl) {
+      $state.go(previousUrl);
+      previousUrl = currentUrl;
+    }
+  }
+
+  function getPreviousUrl(){
+    if(!previousUrl) {
+      previousUrl = currentUrl;
     }
   }
 
@@ -408,12 +532,28 @@ spoofifyApp.service('mainService', function($http, $q){
   }
 
   function getSongInfo(id, arr){
+    console.log(arr);
     var allSongs = arr[0]["songs"];
     currentSongArr = [];
     allSongs.map(function(x, i){
       if(id === x["trackId"]){
         currentSongArr.push(x);
         currentSongArr.push(arr[0]);
+        currentSongArr.push({currentlyPlaying : true});
+        return currentSongArr;
+      }
+    })
+  }
+
+  function getSongInfoFP(id, arr){
+    // console.log(arr);
+    var allSongs = arr;
+    // console.log(allSongs);
+    currentSongArr = [];
+    allSongs.map(function(x, i){
+      if(id === x["trackId"]){
+        currentSongArr.push(x);
+        currentSongArr.push(arr[i]);
         currentSongArr.push({currentlyPlaying : true});
         return currentSongArr;
       }

@@ -15,13 +15,13 @@
     <li ng-repeat="album in featuredAlbums">
       <div class="song">
         <div class="img" album-overlay>
-          <a id="album-cover" ui-sref="album({id : {{album.albumID}}})"><img ng-src="{{album.coverArt}}" />
+          <a id="album-cover" ui-sref="artist({id : {{album.artistID}}})"><img ng-src="{{album.coverArt}}" />
           <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
           </a>
         </div>
         <div class="info">
           <p>
-            <a ui-sref="album({id : {{album.albumID}}})">{{album.albumName}}</a>
+            {{album.albumName}}
           </p>
           <p>
             <a ui-sref="artist({id : {{album.artistID}}})">{{album.artistName}}</a>
@@ -38,7 +38,7 @@
     <li ng-repeat="song in topSongs | limitTo : 10">
       <div class="song">
         <div class="img" album-overlay>
-          <a ui-sref="album({id : {{song.albumId}}})"><img ng-src="{{song.coverArt}}" />
+          <a ui-sref="artist({id : {{song.artistID}}})"><img ng-src="{{song.coverArt}}" />
           <span class="album-overlay"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></span>
           </a>
         </div>

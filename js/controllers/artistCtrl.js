@@ -4,7 +4,7 @@ spoofifyApp.controller('artistCtrl', function($scope, $http, $stateParams, mainS
   mainService.getAlbums($stateParams.id).then(function(results){
     $scope.artistAlbums = results;
 
-    console.log($scope.artistAlbums);
+    // console.log($scope.artistAlbums);
     $scope.playPreview = function(url){
       return mainService.playPreview(url);
     }
