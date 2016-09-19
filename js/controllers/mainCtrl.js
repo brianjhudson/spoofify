@@ -1,6 +1,9 @@
 spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, $location, mainService, userService){
   var baseUrl = "https://itunes.apple.com/";
 
+  $scope.users = userService.users[0];
+  console.log($scope.users);
+
   $scope.test = "test";
   $scope.previousUrl = "";
   $scope.currentUrl = $location.path();

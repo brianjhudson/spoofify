@@ -329,6 +329,11 @@ spoofifyApp.service('mainService', function($http, $location, $q){
     }
   }
 
+  this.addToPlaylist = function(id){
+    console.log("fired");
+      $('add-to-playlist#add').css('display', 'block');
+  }
+
   this.goBack = function() {
     if(previousUrl) {
       $state.go(previousUrl);

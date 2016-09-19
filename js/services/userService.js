@@ -4,8 +4,8 @@ spoofifyApp.service('userService', function(){
     {
       id : 8920610,
       firstName : "Ryan",
-      lastname : "Thames",
-      profileImg : "/user-img.jpg",
+      lastName : "Thames",
+      profileImg : "images/user-img.jpg",
       playlists : [
         {
           plName : "8.27.16",
@@ -60,37 +60,17 @@ spoofifyApp.service('userService', function(){
         {
           plName : "Classic",
           id : 11,
-          songList : []
+          songList : [717552718, 717552719, 717552720, 717552721, 717552722, 717552723, 717552724, 717552725, 717552726, 717552727, 717552728, 717552729, 717552730, 717552731, 717552732]
         },
         {
           plName : "Cinema",
           id : 12,
-          songList : []
+          songList : [944005216, 944005217, 944005218, 944005219, 944005220, 944005221, 944005222, 944005223, 944005224]
         },
         {
           plName : "Christmas Is Here",
           id : 13,
-          songList : []
-        },
-        {
-          plName : "Just Music",
-          id : 14,
-          songList : []
-        },
-        {
-          plName : "Lolz",
-          id : 15,
-          songList : []
-        },
-        {
-          plName : "Advent",
-          id : 16,
-          songList : []
-        },
-        {
-          plName : "Soul",
-          id : 17,
-          songList : []
+          songList : [669854831, 669854833, 669854834, 669854835, 669854836, 669854837, 669854839, 669854840, 669854843, ]
         }
 
       ]

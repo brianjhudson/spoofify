@@ -15,12 +15,12 @@
 </div>
 <div class="wrapper-right">
   <div class="account-dropdown">
-    <a href="#"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+    <!-- <a href="#"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a> -->
   </div>
   <div class="user-info">
-    <img src="../images/user-img.jpg" alt="" />
+    <img ng-src="{{users[0].profileImg}}" />
     <p>
-      Ryan Thames
+      {{users[0].firstName}} {{users[0].lastName}}
     </p>
   </div>
 </div>

@@ -39,7 +39,7 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
     // console.log("watch2", $scope.currentSongArr, newValue, oldValue);
     if($scope.currentSongArr.length > 0){
       // console.log(newValue[2]["currentlyPlaying"]);
-      $('p.song').html(newValue[0]["trackName"].slice(0, 20));
+      $('p.song').html(newValue[0]["trackName"].slice(0, 21));
       $('p.artist').html(newValue[1]["artistName"])
       $('div.album-cover img').attr("src", newValue[1]["coverArt"])
       if(newValue[2]["currentlyPlaying"]){
@@ -61,7 +61,7 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
       $scope.$watch('currentSongArr', function(newValue, oldValue){
         // console.log("watch", $scope.currentSongArr, newValue, oldValue);
         if($scope.currentSongArr.length > 0){
-            $('p.song').html(newValue[0]["trackName"].slice(0, 20));
+            $('p.song').html(newValue[0]["trackName"].slice(0, 21));
             $('p.artist').html(newValue[1]["artistName"])
             $('div.album-cover img').attr("src", newValue[1]["coverArt"])
             if(newValue[2]["currentlyPlaying"]){
@@ -73,6 +73,10 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
             }
         }
       }, true)
+
+      $scope.addToPlaylist = function(){
+        mainService.addToPlaylist();
+      }
 
       $scope.singleAlbum = results;
 

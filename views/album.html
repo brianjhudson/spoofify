@@ -22,7 +22,7 @@
         <th>#</th>
         <th class="title">Song</th>
         <th class="time"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></th>
-        <th></th>
+        <th class="title"></th>
       </tr>
     </thead>
     <tbody class="songs-list">
@@ -32,7 +32,7 @@
         </td>
         <td class="name">{{song.trackName}}</td>
         <td class="time">{{song.trackTime}}</td>
-        <td>
+        <td id="actions">
           <a id="pause" ng-click="pausePreview()"><span class="glyphicon glyphicon-pause pause" aria-hidden="true"></span></a>
           <a id="play" ng-click="playPreview(song.previewUrl, song.trackId, song.trackNumber)"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></a>
         </td>
