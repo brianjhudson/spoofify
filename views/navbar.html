@@ -1,26 +1,21 @@
 <div class="wrapper-left">
   <div class="logo">
-    <img src="../images/spoofify-logo.png" alt="" />
+    <a ui-sref="home"><img src="../images/spoofify-logo.png" alt="" /></a>
   </div>
-  <div class="arrows-nav">
-    <a href="#"><span class="glyphicon glyphicon-chevron-left right-arrow" aria-hidden="true"></span></a>
-    <a href="#"><span class="glyphicon glyphicon-chevron-right left-arrow" aria-hidden="true"></span></a>
-  </div>
+  </div> -->
   <div class="music-search">
     <span class="glyphicon glyphicon-search search-icon" aria-hidden="true"></span>
     <input ng-model="searchQuery" type="text" placeholder="Search" enter-sumbit="searchBy(searchQuery)">
     <button class="search" type="button" ng-click="searchBy(searchQuery)"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
-    <!-- <button type="button" ng-click="getSearchResults(searchQuery)"> Enter</button> -->
   </div>
 </div>
 <div class="wrapper-right">
   <div class="account-dropdown">
-    <a href="#"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
   </div>
   <div class="user-info">
-    <img src="../images/user-img.jpg" alt="" />
+    <img ng-src="{{users[0].profileImg}}" />
     <p>
-      Ryan Thames
+      {{users[0].firstName}} {{users[0].lastName}}
     </p>
   </div>
 </div>

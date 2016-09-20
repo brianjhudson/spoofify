@@ -3,7 +3,7 @@
     <img src="../images/sample-album-cover.png" alt="" />
   </div>
   <div class="currently-playing-info">
-    <p class="song">
+    <p class="song" ng-model="currentSongArr[0].trackName">
       Smells Like Tean Spirit
     </p>
     <p class="artist">
@@ -12,13 +12,14 @@
   </div>
   <div class="play-controls">
     <div class="previous">
-      <button><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
+      <button id="play-previous" ng-click="playPrevious()"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span></button>
     </div>
     <div class="play">
-      <button><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+      <button ng-click="playPreview()" id="master-play"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+      <button ng-click="pausePreview()" id="master-pause"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
     </div>
     <div class="next">
-      <button><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+      <button id="play-next" ng-click="playNext()"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
     </div>
   </div>
 </div>

@@ -1,55 +1,85 @@
-spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, mainService) {
+spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $location, mainService, userService) {
+
+  $scope.currentSongArr = mainService.currentSongArr;
+
+  $scope.playPreview = function(url, id, trackNum){
+    $scope.currentSongArr = [];
+    mainService.playPreview(url, id);
+    $scope.currentSongArr = mainService.currentSongArr;
+  }
+
+  $scope.pausePreview = function(){
+    return mainService.pausePreview();
+  }
+
+  $scope.playNext = function(){
+
+      $scope.currentSongArr = [];
+      mainService.playNext();
+      $scope.currentSongArr = mainService.currentSongArr;
+
+  }
+
+  $scope.playPrevious = function(){
+    $scope.currentSongArr = [];
+    mainService.playPrevious();
+    $scope.currentSongArr = mainService.currentSongArr;
+  }
+
+  $scope.$watch('currentSongArr', function(newValue, oldValue){
+    if($scope.currentSongArr.length > 0){
+      $('p.song').html(newValue[0]["trackName"].slice(0, 21));
+      $('p.artist').html(newValue[1]["artistName"])
+      $('div.album-cover img').attr("src", newValue[1]["coverArt"])
+      if(newValue[2]["currentlyPlaying"]){
+        $('button#master-play').css('display', 'none');
+        $('button#master-pause').css('display', 'block');
+      } else {
+        $('button#master-play').css('display', 'block');
+        $('button#master-pause').css('display', 'none');
+        $('a#pause').css('display', 'none');
+        $('a#play').css('display', 'block');
+      }
+    }
+  }, true)
 
     mainService.getSingleAlbum($stateParams.id).then(function(results){
-      // console.log(results.data.results);
-      var transferObj = results.data.results;
-      $scope.singleAlbum = [];
+      $scope.currentSongArr = mainService.currentSongArr;
 
-      transferObj.forEach(function(x){
-
-
-        mainService.getSongsFromAlbum(x.collectionId).then(function(results){
-          var songsArr = [];
-          var transferSongObj = results.data.results;
-          // console.log(transferSongObj);
-
-          transferSongObj.forEach(function(y, i){
-            if(y.kind === "song"){
-              songsArr.push({
-                kind : y.kind,
-                trackId : y.trackId,
-                trackName : y.trackName,
-                previewUrl : y.previewUrl,
-                trackNumber : y.trackNumber,
-                trackTime : mainService.milliToMinutes(y.trackTimeMillis),
-                trackTimeMillis : y.trackTimeMillis
-              })
+      $scope.$watch('currentSongArr', function(newValue, oldValue){
+        if($scope.currentSongArr.length > 0){
+            $('p.song').html(newValue[0]["trackName"].slice(0, 21));
+            $('p.artist').html(newValue[1]["artistName"])
+            $('div.album-cover img').attr("src", newValue[1]["coverArt"])
+            if(newValue[2]["currentlyPlaying"]){
+              $('button#master-play').css('display', 'none');
+              $('button#master-pause').css('display', 'block');
+            } else {
+              $('button#master-play').css('display', 'block');
+              $('button#master-pause').css('display', 'none');
             }
-            return songsArr;
-          })
+        }
+      }, true)
 
-
-          $scope.singleAlbum.push({
-            artistId : x.artistId,
-            artistName : x.artistName,
-            coverArt : mainService.getBiggerCoverArt(x.artworkUrl100),
-            albumName : x.collectionName,
-            albumId : x.collectionId,
-            genre : x.primaryGenreName,
-            trackCount : x.trackCount,
-            releaseDate : x.releaseDate,
-            releaseYear : parseInt(x.releaseDate.slice(0, 4)),
-            totalAlbumTime : mainService.albumTotalTime(songsArr).slice(0, 2),
-            songs : songsArr
-          })
-
-        })
-      })
-      $scope.playPreview = function(url){
-        return mainService.playPreview(url);
+      $scope.addToPlaylist = function(){
+        mainService.addToPlaylist();
       }
-      // console.log($scope.singleAlbum);
+
+      $scope.singleAlbum = results;
+
+      $scope.playPreview = function(url, id, trackNum){
+        console.log(url, id, trackNum);
+        console.log("fired");
+        $scope.currentSongArr = [];
+        mainService.playPreview(url, id, trackNum);
+        $scope.currentSongArr = mainService.currentSongArr;
+      }
+
+      $scope.pausePreview = function(){
+        return mainService.pausePreview();
+      }
       return $scope.singleAlbum;
     })
+
 
 })

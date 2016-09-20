@@ -11,7 +11,6 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
       }
     }).success(function (response) {
       $scope.newReleases = [];
-      // console.log("new releases", response.rss.channel.item);
       var objTransfer = response.rss.channel.item;
 
       objTransfer.forEach(function(x){
@@ -24,7 +23,6 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
           coverArt : mainService.getBiggerCoverArt(x.coverArt[2].__text)
         })
       })
-      // console.log($scope.newReleases);
       return $scope.newReleases;
     });
   }
@@ -39,7 +37,6 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
       }
     }).success(function (response) {
       $scope.featuredAlbums = [];
-      // console.log('featuredAlbums', response.rss.channel.item);
       var objTransfer = response.rss.channel.item;
 
       objTransfer.forEach(function(x){
@@ -53,7 +50,6 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
           coverArt : mainService.getBiggerCoverArt(x.coverArt[2].__text)
         })
       })
-      // console.log($scope.featuredAlbums);
       return $scope.featuredAlbums;
     });
   }
@@ -68,8 +64,8 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
       }
     }).success(function (response) {
       $scope.topSongs = [];
-      // console.log("top songs", response.feed.entry);
       var objTransfer = response.feed.entry;
+
 
       objTransfer.forEach(function(x){
         $scope.topSongs.push({
@@ -81,7 +77,6 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
           coverArt : mainService.getBiggerCoverArt170(x.image[2].__text)
         })
       })
-      // console.log($scope.topSongs);
       return $scope.topSongs;
     });
   }
@@ -97,7 +92,6 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
     }).success(function (response) {
       $scope.topAlbums = [];
       var objTransfer = response.feed.entry;
-      // console.log(objTransfer);
 
       objTransfer.forEach(function(x){
         $scope.topAlbums.push({
@@ -109,7 +103,6 @@ spoofifyApp.controller('browseCtrl', function($scope, $http, mainService){
           coverArt : mainService.getBiggerCoverArt170(x.image[2].__text)
         })
       })
-      // console.log($scope.topAlbums);
       return $scope.topAlbums;
     });
   }

@@ -33,6 +33,11 @@ var spoofifyApp = angular.module('spoofifyApp', ['ui.router', 'angular.filter'])
       url : "/results/:search",
       controller : "searchCtrl"
     })
+    .state("playlist", {
+      templateUrl : "./views/playlist.html",
+      url : "/playlist/:id",
+      controller : "playlistCtrl"
+    })
   })
 
   spoofifyApp.filter('startFrom', function() {

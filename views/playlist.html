@@ -1,0 +1,31 @@
+<div class="single-album-wrapper">
+  <div class="album-header">
+    <div class="album-info">
+      <p class="year">
+        Playlist
+      </p>
+      <h1>{{currentPlaylist.plName}}</h1>
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="title">Song</th>
+        <th class="title">Artist</th>
+        <th class="time"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="songs-list">
+      <tr song-play ng-repeat="song in playlist">
+        <td class="name">{{song.trackName}}</td>
+        <td class="name"><a ui-sref="artist({id : song.artistId})">{{song.artistName}}</a></td>
+        <td class="time">{{song.trackTime}}</td>
+        <td>
+          <a id="pause" ng-click="pausePreview()"><span class="glyphicon glyphicon-pause pause" aria-hidden="true"></span></a>
+          <a id="play" ng-click="playPreview(song.previewUrl, song.trackId, song.trackNumber, playlist)"><span class="glyphicon glyphicon-play-circle play" aria-hidden="true"></span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
