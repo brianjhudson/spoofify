@@ -17,7 +17,6 @@ spoofifyApp.service('mainService', function($http, $location, $q){
   this.currentUrl = currentUrl;
 
   this.getAlbums = function(id){
-    // var dfd = $q.defer();
     return $http.jsonp(baseUrl + 'lookup?id=' + id + '&entity=album&callback=JSON_CALLBACK').then(function(response){
       var transferObj = response.data.results;
       this.artistAlbums = [];
@@ -31,7 +30,6 @@ spoofifyApp.service('mainService', function($http, $location, $q){
           getSongsFromAlbum(x.collectionId).then(function(response){
             albumSongs = response.data.results;
             albumSongsArr = [];
-            // console.log(albumSongs);
 
             albumSongs.forEach(function(y){
               if(y.kind === "song"){
@@ -58,15 +56,10 @@ spoofifyApp.service('mainService', function($http, $location, $q){
               genre : x.primaryGenreName,
               songs : albumSongsArr
             })
-            // return $scope.artistAlbums;
-              // sortingArr = sortByYear(this.artistAlbums, "releaseYear").reverse();
           })
         }
       })
         this.artistAlbums = sortingArr;
-      // dfd.resolve(this.artistAlbums)
-      // console.log(this.artistAlbums);
-      // return this.artistAlbums;
       return this.artistAlbums;
     })
   }
@@ -93,14 +86,12 @@ spoofifyApp.service('mainService', function($http, $location, $q){
     return $http.jsonp(baseUrl + 'lookup?id=' + id + '&callback=JSON_CALLBACK').then(function(response){
       var transferObj = response.data.results;
       this.singleAlbum = [];
-      // console.log(transferObj);
       transferObj.forEach(function(x){
 
 
         getSongsFromAlbum(x.collectionId).then(function(results){
           var songsArr = [];
           var transferSongObj = results.data.results;
-          // console.log(transferSongObj);
 
           transferSongObj.forEach(function(y, i){
             if(y.kind === "song"){
@@ -115,7 +106,6 @@ spoofifyApp.service('mainService', function($http, $location, $q){
                 trackTimeMillis : y.trackTimeMillis
               })
             }
-            // console.log(songsArr);
             return songsArr;
           })
 
@@ -137,29 +127,17 @@ spoofifyApp.service('mainService', function($http, $location, $q){
         })
       })
       singleAlbumCache = this.singleAlbum;
-      // console.log(this.singleAlbum);
       return this.singleAlbum;
     })
   }
 
-  function closureArr(arr, x, i){
-    // arr.forEach(function(x, i){
-
-    // })
-  }
-
   this.getPlaylistSongs = function(arr){
-    // console.log(arr);
     playlistSongArr = [];
     var dfd = $q.defer();
 
     arr.forEach(function(x, i){
-      // console.log(x, i);
       $http.jsonp(baseUrl + 'lookup?id=' + x + '&entity=song&callback=JSON_CALLBACK').then(function(results){
-          // console.log(results);
         var y = results.data.results;
-        // console.log(y);
-        // console.log(y[0].artistId);
         playlistSongArr.push({
           artistId : y[0].artistId,
           artistName : y[0].artistName,
@@ -176,7 +154,6 @@ spoofifyApp.service('mainService', function($http, $location, $q){
         this.playlistSongArr = playlistSongArr;
         playlistSongsCache = playlistSongArr;
         this.playlistSongsCache = playlistSongsCache;
-        // console.log(this.playlistSongArr);
         dfd.resolve(this.playlistSongArr);
       })
     })
@@ -191,11 +168,8 @@ spoofifyApp.service('mainService', function($http, $location, $q){
   }
 
   this.playPreview = function(url, id, trackNum, playlist){
-    // debugger;
-    // console.log(playlist);
     if(playlist){
       getSongInfoFP(id, playlist);
-      // console.log(url, id, trackNum, playlist);
       this.currentSongArr = currentSongArr;
     } else if(url){
       getSongInfo(id, singleAlbumCache);
@@ -203,28 +177,19 @@ spoofifyApp.service('mainService', function($http, $location, $q){
     }
 
     if(this.currentSong){
-      // console.log("1");
       if(url === this.currentSong.src){
         this.currentSong.play();
       } else if (!url) {
-        // console.log("2");
-        // console.log(currentSongArr);
         currentSongArr[2]["currentlyPlaying"] = true;
         this.currentSong.play();
       } else {
-        // console.log("3");
         this.currentSong.pause();
         this.currentSong = new Audio(url);
-        // console.log("play:", this.currentSong);
         this.currentSong.play();
       }
-      // console.log(url);
-      // console.log(this.currentSong.src);
     } else {
-      // console.log("4");
       var audio = new Audio(url);
       this.currentSong = audio;
-      // console.log("play:", this.currentSong);
       audio.play();
     }
   }
@@ -232,15 +197,12 @@ spoofifyApp.service('mainService', function($http, $location, $q){
   this.pausePreview = function(){
     currentSongArr[2]["currentlyPlaying"] = false;
     this.currentSong.pause();
-    // console.log("pause:", audio);
   }
 
   this.playNext = function(){
     var currentSongInfo = {};
     var currentSongIndex = 0;
     currentUrl = $location.path();
-    // console.log(singleAlbumCache);
-    // console.log(currentUrl);
     console.log(currentUrl);
     if(currentUrl.slice(0, 5) === "/play"){
       console.log("im on the playlist page");
@@ -251,8 +213,6 @@ spoofifyApp.service('mainService', function($http, $location, $q){
           currentSongIndex = i;
         }
       })
-      // console.log(currentSongInfo);
-      // console.log(playlistSongsCache);
         var nextTrack = currentSongIndex + 1;
         var nextId = 0;
         var nextUrl = "";
@@ -269,14 +229,11 @@ spoofifyApp.service('mainService', function($http, $location, $q){
         var nextId = 0;
         var nextUrl = "";
         singleAlbumCache[0]["songs"].map(function(x){
-          // console.log(x["trackNumber"], nextTrack);
           if(x["trackNumber"] === nextTrack){
-            // console.log("it matches");
             nextUrl = x["previewUrl"];
             nextId = x["trackId"]
           }
         })
-        // console.log(nextUrl, nextId, nextTrack);
         this.playPreview(nextUrl, nextId, nextTrack);
       }
     }
@@ -286,8 +243,6 @@ spoofifyApp.service('mainService', function($http, $location, $q){
     var currentSongInfo = {};
     var currentSongIndex = 0;
     currentUrl = $location.path();
-    // console.log(singleAlbumCache);
-    // console.log(currentUrl);
     console.log(currentUrl);
     if(currentUrl.slice(0, 5) === "/play"){
       console.log("im on the playlist page");
@@ -298,8 +253,6 @@ spoofifyApp.service('mainService', function($http, $location, $q){
           currentSongIndex = i;
         }
       })
-      // console.log(currentSongInfo);
-      // console.log(playlistSongsCache);
         var nextTrack = currentSongIndex - 1;
         var nextId = 0;
         var nextUrl = "";
@@ -316,14 +269,11 @@ spoofifyApp.service('mainService', function($http, $location, $q){
         var nextId = 0;
         var nextUrl = "";
         singleAlbumCache[0]["songs"].map(function(x){
-          // console.log(x["trackNumber"], nextTrack);
           if(x["trackNumber"] === nextTrack){
-            // console.log("it matches");
             nextUrl = x["previewUrl"];
             nextId = x["trackId"]
           }
         })
-        // console.log(nextUrl, nextId, nextTrack);
         this.playPreview(nextUrl, nextId, nextTrack);
       }
     }
@@ -551,9 +501,7 @@ spoofifyApp.service('mainService', function($http, $location, $q){
   }
 
   function getSongInfoFP(id, arr){
-    // console.log(arr);
     var allSongs = arr;
-    // console.log(allSongs);
     currentSongArr = [];
     allSongs.map(function(x, i){
       if(id === x["trackId"]){

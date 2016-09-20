@@ -3,7 +3,6 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
   $scope.currentSongArr = mainService.currentSongArr;
 
   $scope.playPreview = function(url, id, trackNum){
-    // console.log("fired");
     $scope.currentSongArr = [];
     mainService.playPreview(url, id);
     $scope.currentSongArr = mainService.currentSongArr;
@@ -15,17 +14,9 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
 
   $scope.playNext = function(){
 
-    // if(mainService.currentUrl.slice(0, 5) === "/play"){
-    //   console.log("im on the playlist page");
-    //   var currentSongLength = mainService.playlistSongsCache.length;
-    //   $scope.currentSongArr = [];
-    //   mainService.playNext(currentSongLength, mainService.playlistSongsCache);
-    //   $scope.currentSongArr = mainService.currentSongArr;
-    // } else {
       $scope.currentSongArr = [];
       mainService.playNext();
       $scope.currentSongArr = mainService.currentSongArr;
-    // }
 
   }
 
@@ -36,16 +27,13 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
   }
 
   $scope.$watch('currentSongArr', function(newValue, oldValue){
-    // console.log("watch2", $scope.currentSongArr, newValue, oldValue);
     if($scope.currentSongArr.length > 0){
-      // console.log(newValue[2]["currentlyPlaying"]);
       $('p.song').html(newValue[0]["trackName"].slice(0, 21));
       $('p.artist').html(newValue[1]["artistName"])
       $('div.album-cover img').attr("src", newValue[1]["coverArt"])
       if(newValue[2]["currentlyPlaying"]){
         $('button#master-play').css('display', 'none');
         $('button#master-pause').css('display', 'block');
-        // $('button#play-next').css('')
       } else {
         $('button#master-play').css('display', 'block');
         $('button#master-pause').css('display', 'none');
@@ -59,7 +47,6 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
       $scope.currentSongArr = mainService.currentSongArr;
 
       $scope.$watch('currentSongArr', function(newValue, oldValue){
-        // console.log("watch", $scope.currentSongArr, newValue, oldValue);
         if($scope.currentSongArr.length > 0){
             $('p.song').html(newValue[0]["trackName"].slice(0, 21));
             $('p.artist').html(newValue[1]["artistName"])
@@ -91,7 +78,6 @@ spoofifyApp.controller('albumCtrl', function($scope, $http, $stateParams, $locat
       $scope.pausePreview = function(){
         return mainService.pausePreview();
       }
-      // console.log($scope.singleAlbum);
       return $scope.singleAlbum;
     })
 

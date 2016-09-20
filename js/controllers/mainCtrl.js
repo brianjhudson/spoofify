@@ -36,37 +36,9 @@ spoofifyApp.controller('mainCtrl', function($scope, $http, $stateParams, $locati
 
   $scope.users = userService.users;
   $scope.userPlaylist = $scope.users[0].playlists
-  // console.log($scope.users);
-  // console.log($scope.userPlaylist);
 
-  // console.log($location.path());
 
   $scope.$on('$routeUpdate', function(){
     $scope.previewUrl = $scope.currentUrl;
   });
-
-    // console.log($scope.currentUrl, $scope.previewUrl);
-
-// $scope.getAlbum = function(id){
-//   mainService.getAlbum(id).then(function(results){
-//
-//   })
-// }
-
-
-  // console.log($scope.artistId);
-
-  // mainService.getArtist(580391756).then(function(results){
-  //   // console.log(results);
-  //   $scope.artistInfo = results.data.results
-  // })
-
-
-
-
-  // $scope.getSearchResults = function(search){
-  //   mainService.getSearchResults(search).then(function(results){
-  //     console.log('fired', results);
-  //   })
-  // }
 })

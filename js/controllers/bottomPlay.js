@@ -10,7 +10,6 @@ spoofifyApp.controller("bottomPlay", function($scope, mainService){
 
     $scope.changeArr = function(){
       mainService.testArr.pop();
-      // console.log($scope.testArr);
       return $scope.testArr;
     }
 
